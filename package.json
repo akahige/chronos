@@ -5,6 +5,14 @@
     "dist"
   ],
   "license": "MIT",
+  "keywords": [
+    "javascript",
+    "date",
+    "time",
+    "library",
+    "typescript",
+    "chronos"
+  ],
   "main": "./dist/chronos.umd.js",
   "module": "./dist/chronos.es.js",
   "types": "./dist/chronos.d.ts",
