@@ -9,7 +9,7 @@ Despite its small footprint, it doesn't compromise on functionalities, providing
 You can install Chronos via npm:
 
 ```
-    npm install chronos
+npm install chronos
 ```
 
 Or, if you prefer yarn:
