@@ -22,7 +22,10 @@
       "require": "./dist/chronos.umd.js"
     },
     "./package.json": "./package.json",
-    "./*": "./*"
+    "./*": "./*",
+    "./*.d.ts": {
+      "types": "./dist/*.d.ts"
+    }
   },
   "scripts": {
     "dev": "vite",
