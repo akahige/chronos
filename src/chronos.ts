@@ -1,5 +1,7 @@
+/// <reference types="./chronos.d.ts" />
+
 class Chronos {
-  static defaultLocale = "en-US";
+  static defaultLocale: string = "en-US";
 
   static formatMap: IformatMap = {
     YYYY: { year: "numeric" },

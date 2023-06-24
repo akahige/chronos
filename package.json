@@ -1,5 +1,10 @@
 {
   "name": "@asidd/chronos",
+  "author": {
+    "name": "Akahige",
+    "email": "hello@manneta.com",
+    "url": "https://www.manneta.com"
+  },
   "version": "1.0.3",
   "files": [
     "dist"
@@ -14,17 +19,21 @@
     "chronos"
   ],
   "main": "./dist/chronos.umd.js",
-  "module": "./dist/chronos.es.js",
-  "types": "./dist/chronos.d.ts",
+  "module": "./dist/Chronos.es.js",
+  "types": "dist/Chronos.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/chronos.es.js",
-      "require": "./dist/chronos.umd.js"
+      "import": "./dist/Chronos.es.js",
+      "require": "./dist/Chronos.umd.js",
+      "types": "./dist/chronos.d.ts"
     },
-    "./package.json": "./package.json",
-    "./*": "./*",
-    "./*.d.ts": {
-      "types": "./dist/*.d.ts"
+    "./package.json": "./package.json"
+  },
+  "typesVersions": {
+    "*": {
+      "./*": [
+        "./dist/*"
+      ]
     }
   },
   "scripts": {
