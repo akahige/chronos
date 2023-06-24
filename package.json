@@ -1,10 +1,16 @@
 {
   "name": "@asidd/chronos",
   "author": {
-    "name": "Akahige",
-    "email": "hello@manneta.com",
-    "url": "https://www.manneta.com"
+    "name": "Akahige"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akahige/chronos.git"
+  },
+  "bugs": {
+    "url": "https://github.com/akahige/chronos/issues"
+  },
+  "homepage": "https://github.com/akahige/chronos#readme",
   "version": "1.0.4",
   "files": [
     "dist"
