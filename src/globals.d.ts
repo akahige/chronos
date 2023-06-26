@@ -46,6 +46,10 @@ declare interface IgetWeekdayNames {
 declare type Week = Date[];
 declare type Month = Week[];
 
-declare interface IgetWeeksInMonth {
-  (month: number, year: number, weekStart?: number): Month;
-}
+declare type IgetWeeksInMonth = (
+  date: Chronos,
+  startDay: number,
+  dayFormat: string
+) => string[][];
+
+declare type Idiff = (date1: Chronos, date2: Chronos, unit: TimeUnit) => number;

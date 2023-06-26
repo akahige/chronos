@@ -9,6 +9,9 @@ export default defineConfig({
       name: "Chronos",
       fileName: (format) => `Chronos.${format}.js`,
     },
+    rollupOptions: {
+      output: { exports: "named" },
+    },
   },
   test: {
     globals: true,

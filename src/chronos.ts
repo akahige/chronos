@@ -20,8 +20,12 @@ class Chronos {
     A: { hour: "2-digit", hour12: true },
   };
 
-  constructor(date: string, format: string) {
-    this.date = this.parseDate(date, format);
+  constructor(date?: string, format?: string) {
+    if (date && format) {
+      this.date = this.parseDate(date, format);
+    } else {
+      this.date = new Date();
+    }
 
     this.isValid = !isNaN(this.date.getTime());
   }
@@ -201,83 +205,6 @@ class Chronos {
 
   subtract(value: number, unit: TimeUnit): this {
     return this.add(-value, unit);
-  }
-
-  diff(other: Chronos, unit: TimeUnit = "milliseconds"): number {
-    const diffInMs = this.date.getTime() - other.date.getTime();
-    let result: number;
-
-    switch (unit) {
-      case "years":
-        result = diffInMs / (1000 * 60 * 60 * 24 * 365.25); // approximate
-        break;
-      case "months":
-        result = diffInMs / (1000 * 60 * 60 * 24 * 30.4375); // approximate
-        break;
-      case "days":
-        result = diffInMs / (1000 * 60 * 60 * 24);
-        break;
-      case "hours":
-        result = diffInMs / (1000 * 60 * 60);
-        break;
-      case "minutes":
-        result = diffInMs / (1000 * 60);
-        break;
-      case "seconds":
-        result = diffInMs / 1000;
-        break;
-      case "milliseconds":
-      default:
-        result = diffInMs;
-    }
-
-    if (Math.round(result) != result) {
-      result = Math.round((result + Number.EPSILON) * 100) / 100;
-    }
-
-    return result;
-  }
-
-  static getWeekdayNames: IgetWeekdayNames = (
-    startDay = 0,
-    format = "long",
-    locale = Chronos.defaultLocale
-  ) => {
-    const days = [];
-    for (let i = 0; i < 7; i++) {
-      const date = new Date("1970-01-04"); // This was a Sunday
-      date.setDate(date.getDate() + i + startDay);
-      const weekdayName = date.toLocaleString(locale, { weekday: format });
-      days.push(weekdayName);
-    }
-    return days;
-  };
-
-  getWeeksInMonth(startDay: number = 0, dayFormat = "YYYY-MM-DD"): string[][] {
-    let weeks: string[][] = [];
-    let week: string[] = [];
-
-    let firstDayOfMonth = new Chronos(this.format("YYYY-MM-01"), "YYYY-MM-DD");
-    firstDayOfMonth.subtract(
-      (firstDayOfMonth.getDate().getDay() + 7 - startDay) % 7,
-      "days"
-    );
-
-    let currentDay = firstDayOfMonth;
-    let month = this.format("MM");
-
-    while (true) {
-      while (week.length < 7) {
-        week.push(currentDay.format(dayFormat));
-        currentDay.add(1, "days");
-      }
-      weeks.push(week);
-      week = [];
-
-      if (currentDay.format("MM") !== month) break;
-    }
-
-    return weeks;
   }
 }
 
