@@ -64,8 +64,6 @@ describe("getWeeksInMonth", () => {
 
       // Check that each week has 7 days
       monthWeeks.forEach((week) => {
-        console.log(week);
-
         expect(week.length).to.equal(7);
       });
 

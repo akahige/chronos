@@ -1,5 +1,5 @@
 declare class ChronosConstructor {
-  constructor(date: string, format: string);
+  constructor(date?: string, format?: string);
   static defaultLocale: string;
   static formatMap: IformatMap;
   static formatTokens: string[];

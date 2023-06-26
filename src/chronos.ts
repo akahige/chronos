@@ -21,7 +21,11 @@ class Chronos {
   };
 
   constructor(date: string, format: string) {
-    this.date = this.parseDate(date, format);
+    if (date && format) {
+      this.date = this.parseDate(date, format);
+    } else {
+      this.date = new Date();
+    }
 
     this.isValid = !isNaN(this.date.getTime());
   }
