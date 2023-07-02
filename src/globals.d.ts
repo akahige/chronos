@@ -27,7 +27,12 @@ declare type IdateParts = {
   [key: string]: { index: number; length: number };
 };
 
-declare type ChronosConstructorArgs = ConstructorParameters<typeof Date>;
+declare type IisBetween = (
+  date1: Chronos,
+  date2: Chronos,
+  unit?: TimeUnit = "milliseconds",
+  inclusive?: boolean = false
+) => boolean;
 
 declare type TimeUnit =
   | "years"
@@ -43,9 +48,14 @@ declare interface IgetWeekdayNames {
   (startDay: number, format: WeekdayFormat, locale?: string): string[];
 }
 
-declare type Week = Date[];
+declare type Week = string[];
 declare type Month = Week[];
 
-declare interface IgetWeeksInMonth {
-  (month: number, year: number, weekStart?: number): Month;
-}
+declare type IgetWeeksInMonth = (startDay: number, dayFormat: string) => Month;
+
+declare type Iadd = (value: number, unit: TimeUnit) => this;
+
+declare type Idiff = (other: Chronos, unit: TimeUnit) => number;
+declare type Isubtract = (value: number, unit: TimeUnit) => this;
+
+declare type IgetDate = () => Date;

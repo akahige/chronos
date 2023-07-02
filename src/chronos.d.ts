@@ -1,25 +1,23 @@
-declare class ChronosConstructor {
-  constructor(date?: string, format?: string);
+declare class Chronos {
+  constructor(date?: string | Date | Chronos, format?: string);
   static defaultLocale: string;
   static formatMap: IformatMap;
   static formatTokens: string[];
   static getWeekdayNames: IgetWeekdayNames;
-}
-
-declare class Chronos extends ChronosConstructor {
   date: Date;
   isValid: boolean;
-  getDate(): Date;
+  getDate: IgetDate;
   parseDate: IparseDate;
   parseToObj: IparseToObj;
   constructIsoDateString: IconstructIsoDateString;
   convertTo24HourFormat: IconvertTo24HourFormat;
   format: Iformat;
   createFormatOptions: IcreateFormatOptions;
-  add(value: number, unit: TimeUnit): this;
-  subtract(value: number, unit: TimeUnit): this;
-  diff(other: Chronos, unit: TimeUnit): number;
-  getWeeksInMonth(startDay: number, dayFormat: string): string[][];
+  add: Iadd;
+  subtract: Isubtract;
+  diff: Idiff;
+  isBetween: IisBetween;
+  getWeeksInMonth: IgetWeeksInMonth;
 }
 
 export default Chronos;
