@@ -5,7 +5,7 @@ export default defineConfig({
   plugins: [dts()],
   build: {
     lib: {
-      entry: "src/chronos.ts",
+      entry: "src/index.ts",
       name: "Chronos",
       fileName: (format) => `Chronos.${format}.js`,
     },

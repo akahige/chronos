@@ -28,8 +28,9 @@ declare type IdateParts = {
 };
 
 declare type IisBetween = (
-  date1: Chronos,
-  date2: Chronos,
+  date: Chronos,
+  start: Chronos,
+  end: Chronos,
   unit?: TimeUnit = "milliseconds",
   inclusive?: boolean = false
 ) => boolean;
@@ -58,11 +59,11 @@ declare type IgetWeeksInMonth = (
 ) => Month;
 
 declare type Idiff = (date1: Chronos, date2: Chronos, unit: TimeUnit) => number;
-declare type IgetWeeksInMonth = (startDay: number, dayFormat: string) => Month;
+// declare type IgetWeeksInMonth = (startDay: number, dayFormat: string) => Month;
 
-declare type Iadd = (value: number, unit: TimeUnit) => this;
+declare type Iadd = (date: Chronos, value: number, unit: TimeUnit) => this;
 
-declare type Idiff = (other: Chronos, unit: TimeUnit) => number;
-declare type Isubtract = (value: number, unit: TimeUnit) => this;
+declare type Idiff = (date1: Chronos, date2: Chronos, unit: TimeUnit) => number;
+declare type Isubtract = (date: chronos, value: number, unit: TimeUnit) => this;
 
 declare type IgetDate = () => Date;

@@ -12,12 +12,6 @@ declare class Chronos {
   convertTo24HourFormat: IconvertTo24HourFormat;
   format: Iformat;
   createFormatOptions: IcreateFormatOptions;
-  add: Iadd;
-  subtract: Isubtract;
-  isBetween: IisBetween;
-  diff: Idiff;
-  static getWeekdayNames: IgetWeekdayNames;
-  getWeeksInMonth: IgetWeeksInMonth;
 }
 
 export default Chronos;

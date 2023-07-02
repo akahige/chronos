@@ -1,26 +1,28 @@
+import add from "./add";
 import Chronos from "./chronos";
+import subtract from "./subtract";
 
 const getWeeksInMonth: IgetWeeksInMonth = (
   date,
-  startDay: number = 0,
+  startDay = 0,
   dayFormat = "YYYY-MM-DD"
 ) => {
   let weeks: string[][] = [];
   let week: string[] = [];
 
   let firstDayOfMonth = new Chronos(date.format("YYYY-MM-01"), "YYYY-MM-DD");
-  firstDayOfMonth.subtract(
+
+  let currentDay = subtract(
+    firstDayOfMonth,
     (firstDayOfMonth.getDate().getDay() + 7 - startDay) % 7,
     "days"
   );
-
-  let currentDay = firstDayOfMonth;
   let month = date.format("MM");
 
   while (true) {
     while (week.length < 7) {
       week.push(currentDay.format(dayFormat));
-      currentDay.add(1, "days");
+      currentDay = add(currentDay, 1, "days");
     }
     weeks.push(week);
     week = [];
