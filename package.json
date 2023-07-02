@@ -26,13 +26,13 @@
   ],
   "main": "./dist/chronos.umd.js",
   "module": "./dist/Chronos.es.js",
-  "types": "dist/Chronos.d.ts",
+  "types": "dist/index.d.ts",
   "sideEffects": false,
   "exports": {
     ".": {
       "import": "./dist/Chronos.es.js",
       "require": "./dist/Chronos.umd.js",
-      "types": "./dist/chronos.d.ts"
+      "types": "./dist/index.d.ts"
     },
     "./package.json": "./package.json"
   },

@@ -1,3 +1,19 @@
+declare class Chronos {
+  constructor(date?: string | Date | Chronos, format?: string);
+  static defaultLocale: string;
+  static formatMap: IformatMap;
+  static formatTokens: string[];
+  date: Date;
+  isValid: boolean;
+  getDate: IgetDate;
+  parseDate: IparseDate;
+  parseToObj: IparseToObj;
+  constructIsoDateString: IconstructIsoDateString;
+  convertTo24HourFormat: IconvertTo24HourFormat;
+  format: Iformat;
+  createFormatOptions: IcreateFormatOptions;
+}
+
 declare type Iformat = (formatString: string, locale?: string) => string;
 
 declare type IconvertTo24HourFormat = (hh: string, ampm: string) => string;
@@ -31,8 +47,8 @@ declare type IisBetween = (
   date: Chronos,
   start: Chronos,
   end: Chronos,
-  unit?: TimeUnit = "milliseconds",
-  inclusive?: boolean = false
+  unit?: TimeUnit,
+  inclusive?: boolean
 ) => boolean;
 
 declare type TimeUnit =
@@ -61,9 +77,12 @@ declare type IgetWeeksInMonth = (
 declare type Idiff = (date1: Chronos, date2: Chronos, unit: TimeUnit) => number;
 // declare type IgetWeeksInMonth = (startDay: number, dayFormat: string) => Month;
 
-declare type Iadd = (date: Chronos, value: number, unit: TimeUnit) => this;
+declare type Iadd = (date: Chronos, value: number, unit: TimeUnit) => Chronos;
 
-declare type Idiff = (date1: Chronos, date2: Chronos, unit: TimeUnit) => number;
-declare type Isubtract = (date: chronos, value: number, unit: TimeUnit) => this;
+declare type Isubtract = (
+  date: chronos,
+  value: number,
+  unit: TimeUnit
+) => Chronos;
 
 declare type IgetDate = () => Date;

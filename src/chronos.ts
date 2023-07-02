@@ -1,5 +1,3 @@
-/// <reference types="./chronos.d.ts" />
-
 class Chronos {
   static defaultLocale: string = "en-US";
 
