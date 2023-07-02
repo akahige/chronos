@@ -27,6 +27,7 @@
   "main": "./dist/chronos.umd.js",
   "module": "./dist/Chronos.es.js",
   "types": "dist/Chronos.d.ts",
+  "sideEffects": false,
   "exports": {
     ".": {
       "import": "./dist/Chronos.es.js",

@@ -1,10 +1,11 @@
 import { expect } from "vitest";
 import Chronos from "../chronos";
+import getWeeksInMonth from "../getWeeksInMonth";
 
 describe("getWeeksInMonth", () => {
   it("should return weeks for January 2023 starting the week on Monday", () => {
     const dateInstance = new Chronos("2023-01", "YYYY-MM");
-    const monthWeeks = dateInstance.getWeeksInMonth(1, "DD");
+    const monthWeeks = getWeeksInMonth(dateInstance, 1, "DD");
     assert.deepEqual(monthWeeks, [
       ["26", "27", "28", "29", "30", "31", "01"],
       ["02", "03", "04", "05", "06", "07", "08"],
@@ -18,7 +19,7 @@ describe("getWeeksInMonth", () => {
   it("should return weeks for February 2024 (leap year) starting the week on Sunday", () => {
     const dateInstance = new Chronos("2024-02", "YYYY-MM");
 
-    const monthWeeks = dateInstance.getWeeksInMonth(0, "DD");
+    const monthWeeks = getWeeksInMonth(dateInstance, 0, "DD");
 
     assert.deepEqual(monthWeeks, [
       ["28", "29", "30", "31", "01", "02", "03"],
@@ -60,7 +61,7 @@ describe("getWeeksInMonth", () => {
 
     testCases.forEach(({ month, startDay, format, weeks, first, last }) => {
       const dateInstance = new Chronos(month, "YYYY-MM");
-      const monthWeeks = dateInstance.getWeeksInMonth(startDay, format);
+      const monthWeeks = getWeeksInMonth(dateInstance, startDay, format);
 
       // Check that each week has 7 days
       monthWeeks.forEach((week) => {

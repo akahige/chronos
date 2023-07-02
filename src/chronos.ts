@@ -28,7 +28,7 @@ class Chronos {
     } else if (date instanceof Date) {
       this.date = new Date(date.getTime()); // create a new instance to avoid reference issues
     } else if (date instanceof Chronos) {
-      this.date = new Date(date.date.getTime()); // create a new instance to avoid reference issues
+      this.date = new Date(date.getDate().getTime()); // create a new instance to avoid reference issues
     } else {
       throw new Error("Invalid arguments passed to Chronos constructor");
     }
@@ -182,131 +182,6 @@ class Chronos {
     });
 
     return options;
-  };
-
-  add: Iadd = (value, unit) => {
-    switch (unit) {
-      case "years":
-        this.date.setFullYear(this.date.getFullYear() + value);
-        break;
-      case "months":
-        this.date.setMonth(this.date.getMonth() + value);
-        break;
-      case "days":
-        this.date.setDate(this.date.getDate() + value);
-        break;
-      case "hours":
-        this.date.setHours(this.date.getHours() + value);
-        break;
-      case "minutes":
-        this.date.setMinutes(this.date.getMinutes() + value);
-        break;
-      case "seconds":
-        this.date.setSeconds(this.date.getSeconds() + value);
-        break;
-    }
-
-    return this;
-  };
-
-  subtract: Isubtract = (value, unit) => {
-    return this.add(-value, unit);
-  };
-
-  diff: Idiff = (other, unit = "milliseconds") => {
-    const diffInMs = this.date.getTime() - other.date.getTime();
-    let result: number;
-
-    switch (unit) {
-      case "years":
-        result = diffInMs / (1000 * 60 * 60 * 24 * 365.25); // approximate
-        break;
-      case "months":
-        result = diffInMs / (1000 * 60 * 60 * 24 * 30.4375); // approximate
-        break;
-      case "days":
-        result = diffInMs / (1000 * 60 * 60 * 24);
-        break;
-      case "hours":
-        result = diffInMs / (1000 * 60 * 60);
-        break;
-      case "minutes":
-        result = diffInMs / (1000 * 60);
-        break;
-      case "seconds":
-        result = diffInMs / 1000;
-        break;
-      case "milliseconds":
-      default:
-        result = diffInMs;
-    }
-
-    if (Math.round(result) != result) {
-      result = Math.round((result + Number.EPSILON) * 100) / 100;
-    }
-
-    return result;
-  };
-
-  isBetween: IisBetween = (
-    date1,
-    date2,
-    unit = "milliseconds",
-    inclusive = false
-  ) => {
-    const diff1 = Math.floor(this.diff(date1, unit));
-    const diff2 = Math.floor(this.diff(date2, unit));
-
-    if (inclusive) {
-      return diff1 >= 0 && diff2 <= 0;
-    } else {
-      return diff1 > 0 && diff2 < 0;
-    }
-  };
-
-  static getWeekdayNames: IgetWeekdayNames = (
-    startDay = 0,
-    format = "long",
-    locale = Chronos.defaultLocale
-  ) => {
-    const days = [];
-    for (let i = 0; i < 7; i++) {
-      const date = new Date("1970-01-04"); // This was a Sunday
-      date.setDate(date.getDate() + i + startDay);
-      const weekdayName = date.toLocaleString(locale, { weekday: format });
-      days.push(weekdayName);
-    }
-    return days;
-  };
-
-  getWeeksInMonth: IgetWeeksInMonth = (
-    startDay = 0,
-    dayFormat = "YYYY-MM-DD"
-  ) => {
-    let weeks: string[][] = [];
-    let week: string[] = [];
-
-    let firstDayOfMonth = new Chronos(this.format("YYYY-MM-01"), "YYYY-MM-DD");
-    firstDayOfMonth.subtract(
-      (firstDayOfMonth.getDate().getDay() + 7 - startDay) % 7,
-      "days"
-    );
-
-    let currentDay = firstDayOfMonth;
-    let month = this.format("MM");
-
-    while (true) {
-      while (week.length < 7) {
-        week.push(currentDay.format(dayFormat));
-        currentDay.add(1, "days");
-      }
-      weeks.push(week);
-      week = [];
-
-      if (currentDay.format("MM") !== month) break;
-    }
-
-    return weeks;
   };
 }
 
