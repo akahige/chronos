@@ -20,11 +20,17 @@ class Chronos {
     A: { hour: "2-digit", hour12: true },
   };
 
-  constructor(date?: string, format?: string) {
-    if (date && format) {
-      this.date = this.parseDate(date, format);
-    } else {
+  constructor(date?: string | Date | Chronos, format?: string) {
+    if (!date) {
       this.date = new Date();
+    } else if (typeof date === "string" && format) {
+      this.date = this.parseDate(date, format);
+    } else if (date instanceof Date) {
+      this.date = new Date(date.getTime()); // create a new instance to avoid reference issues
+    } else if (date instanceof Chronos) {
+      this.date = new Date(date.date.getTime()); // create a new instance to avoid reference issues
+    } else {
+      throw new Error("Invalid arguments passed to Chronos constructor");
     }
 
     this.isValid = !isNaN(this.date.getTime());
@@ -178,7 +184,7 @@ class Chronos {
     return options;
   };
 
-  add(value: number, unit: TimeUnit): this {
+  add: Iadd = (value, unit) => {
     switch (unit) {
       case "years":
         this.date.setFullYear(this.date.getFullYear() + value);
@@ -201,11 +207,27 @@ class Chronos {
     }
 
     return this;
-  }
+  };
 
-  subtract(value: number, unit: TimeUnit): this {
+  subtract: Isubtract = (value, unit) => {
     return this.add(-value, unit);
-  }
+  };
+
+  isBetween: IisBetween = (
+    date1,
+    date2,
+    unit = "milliseconds",
+    inclusive = false
+  ) => {
+    const diff1 = Math.floor(this.diff(date1, unit));
+    const diff2 = Math.floor(this.diff(date2, unit));
+
+    if (inclusive) {
+      return diff1 >= 0 && diff2 <= 0;
+    } else {
+      return diff1 > 0 && diff2 < 0;
+    }
+  };
 }
 
 export default Chronos;
