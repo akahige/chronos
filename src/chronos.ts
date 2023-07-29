@@ -50,13 +50,17 @@ class Chronos {
 
   parseToObj: IparseToObj = (dateString, formatString) => {
     let formatRegex = /(YYYY|YY|MMMM|MMM|MM|DD|hh|HH|mm|ss|sss|a|A|Z)/g;
-    let valueComponents = dateString.split(/\D+/);
+    let valueComponents = dateString.split(/\W+/);
     let formatComponents = formatString.match(formatRegex);
 
     let dateObject =
       formatComponents?.reduce(
         (acc: { [key: string]: string }, key: string, index: number) => {
-          acc[key] = valueComponents ? valueComponents[index] : "";
+          if (key === "a" || key === "A") {
+            acc["ampm"] = valueComponents ? valueComponents[index] : "";
+          } else {
+            acc[key] = valueComponents ? valueComponents[index] : "";
+          }
           return acc;
         },
         {}
@@ -100,6 +104,7 @@ class Chronos {
 
   convertTo24HourFormat: IconvertTo24HourFormat = (hh, ampm) => {
     if (hh === undefined) return "00";
+    console.log(ampm, hh);
 
     const isPM = ampm === "PM";
     const hour12 = parseInt(hh, 10);
