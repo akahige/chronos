@@ -104,7 +104,6 @@ class Chronos {
 
   convertTo24HourFormat: IconvertTo24HourFormat = (hh, ampm) => {
     if (hh === undefined) return "00";
-    console.log(ampm, hh);
 
     const isPM = ampm === "PM";
     const hour12 = parseInt(hh, 10);
