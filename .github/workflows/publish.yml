@@ -1,0 +1,39 @@
+name: Publish Package
+
+on:
+  push:
+    branches: main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js 18.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18.x"
+          registry-url: "https://registry.npmjs.org"
+      - run: npm ci
+      - run: npm run build
+      - name: Bump version and push tag
+        id: tag_version
+        run: |
+          if [[ "$(git log -1 --pretty=%B)" == *"[BREAK]"* ]]; then 
+            npm version major --no-git-tag-version
+          elif [[ "$(git log -1 --pretty=%B)" == *"[FEATURE]"* ]]; then 
+            npm version minor --no-git-tag-version
+          else
+            npm version patch --no-git-tag-version
+          fi
+          echo "VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
+          git config --global user.email "hello@manneta.com"
+          git config --global user.name "Akahige"
+          git commit -am "Bump version $(node -p -e "require('./package.json').version")"
+          git push
+          git tag "v$(node -p -e "require('./package.json').version")"
+          git push --tags
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
