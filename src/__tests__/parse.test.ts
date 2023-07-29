@@ -39,3 +39,51 @@ describe("Parse date function", () => {
     });
   });
 });
+
+describe("parse AM/PM", () => {
+  const format = "MM/DD/YYYY hh:mm A";
+
+  it("should correctly parse AM dates", () => {
+    const chronos = new Chronos("07/28/2023 01:00 AM", format);
+    expect(chronos.format(format)).toBe("07/28/2023 01:00 AM");
+  });
+
+  it("should correctly parse PM dates", () => {
+    const chronos = new Chronos("07/28/2023 01:00 PM", format);
+    expect(chronos.format(format)).toBe("07/28/2023 01:00 PM");
+  });
+
+  it("should correctly handle dates near midnight", () => {
+    const chronos = new Chronos("07/28/2023 12:00 AM", format);
+    expect(chronos.format(format)).toBe("07/28/2023 12:00 AM");
+  });
+
+  it("should correctly handle dates near noon", () => {
+    const chronos = new Chronos("07/28/2023 12:00 PM", format);
+    expect(chronos.format(format)).toBe("07/28/2023 12:00 PM");
+  });
+});
+
+describe("Parsing dates", () => {
+  const format = "MM/DD/YYYY hh:mm A";
+
+  it("should correctly parse AM dates", () => {
+    const chronos = new Chronos("07/28/2023 01:00 AM", format);
+    expect(chronos.format("MM/DD/YYYY HH:mm")).toBe("07/28/2023 01:00");
+  });
+
+  it("should correctly parse PM dates", () => {
+    const chronos = new Chronos("07/28/2023 01:00 PM", format);
+    expect(chronos.format("MM/DD/YYYY HH:mm")).toBe("07/28/2023 13:00");
+  });
+
+  it("should correctly handle dates near midnight", () => {
+    const chronos = new Chronos("07/28/2023 12:00 AM", format);
+    expect(chronos.format("MM/DD/YYYY HH:mm")).toBe("07/28/2023 00:00");
+  });
+
+  it("should correctly handle dates near noon", () => {
+    const chronos = new Chronos("07/28/2023 12:00 PM", format);
+    expect(chronos.format("MM/DD/YYYY HH:mm")).toBe("07/28/2023 12:00");
+  });
+});

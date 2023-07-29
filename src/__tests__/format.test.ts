@@ -53,3 +53,27 @@ describe("Chronos class format method", () => {
     expect(dateInstance.format(format)).toBe("Aug, 01");
   });
 });
+
+describe("Formatting dates", () => {
+  const format = "MM/DD/YYYY HH:mm";
+
+  it("should correctly format early morning dates", () => {
+    const chronos = new Chronos("07/28/2023 01:00", format);
+    expect(chronos.format("MM/DD/YYYY hh:mm A")).toBe("07/28/2023 01:00 AM");
+  });
+
+  it("should correctly format afternoon dates", () => {
+    const chronos = new Chronos("07/28/2023 13:00", format);
+    expect(chronos.format("MM/DD/YYYY hh:mm A")).toBe("07/28/2023 01:00 PM");
+  });
+
+  it("should correctly handle dates near midnight", () => {
+    const chronos = new Chronos("07/28/2023 00:00", format);
+    expect(chronos.format("MM/DD/YYYY hh:mm A")).toBe("07/28/2023 12:00 AM");
+  });
+
+  it("should correctly handle dates near noon", () => {
+    const chronos = new Chronos("07/28/2023 12:00", format);
+    expect(chronos.format("MM/DD/YYYY hh:mm A")).toBe("07/28/2023 12:00 PM");
+  });
+});
